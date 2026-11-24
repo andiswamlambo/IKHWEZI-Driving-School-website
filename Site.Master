@@ -1,0 +1,827 @@
+﻿ <%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="WebApplicationM3.SiteMaster" %>
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%: Page.Title %> - IKHWEZI Driving School</title>
+
+    <asp:PlaceHolder runat="server">
+        <%: Scripts.Render("~/bundles/modernizr") %>
+    </asp:PlaceHolder>
+    <webopt:bundlereference runat="server" path="~/Content/css" />
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+
+    <style>
+        html { scroll-behavior: smooth; }
+
+        body {
+            padding-top: 76px;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #ffffff;
+            color: #223;
+            margin: 0;
+        }
+
+        /* =========================================================
+           BRAND NAVBAR — WHITE
+           ========================================================= */
+        .navbar-khwezi {
+            background: #ffffff;
+            border: none;
+            border-bottom: 3px solid #0d2b6e;
+            border-radius: 0;
+            min-height: 76px;
+            box-shadow: 0 2px 10px rgba(13, 43, 110, .07);
+        }
+        .navbar-khwezi .container { position: relative; }
+
+        .brand-logo {
+            display: flex !important;
+            align-items: center;
+            gap: 12px;
+            height: 72px;
+            padding: 4px 0 !important;
+            margin-right: 24px;
+            text-decoration: none !important;
+        }
+        .brand-logo:hover { text-decoration: none !important; }
+
+        .brand-icon {
+            height: 54px;
+            width: auto;
+            display: block;
+            transition: opacity .2s ease;
+        }
+        .brand-logo:hover .brand-icon { opacity: .85; }
+
+        .brand-text {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            line-height: 1;
+        }
+        .brand-name {
+            font-size: 24px;
+            font-weight: 900;
+            font-style: italic;
+            letter-spacing: 1px;
+            color: #0d2b6e;
+        }
+        .brand-name .brand-dot { color: #e8283f; }
+        .brand-sub {
+            font-size: 8.5px;
+            letter-spacing: 4px;
+            color: #7787a5;
+            margin-top: 4px;
+            font-weight: 700;
+        }
+
+        .navbar-khwezi .navbar-nav > li > a {
+            color: #223;
+            font-size: 15px;
+            font-weight: 600;
+            padding: 26px 18px;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -3px;
+            transition: color .2s ease, border-color .2s ease, background .2s ease;
+        }
+        .navbar-khwezi .navbar-nav > li > a:hover,
+        .navbar-khwezi .navbar-nav > li > a:focus {
+            color: #0d2b6e;
+            background: #f7faff;
+            border-bottom-color: #e8283f;
+        }
+        .navbar-khwezi .navbar-nav > .active > a,
+        .navbar-khwezi .navbar-nav > .active > a:hover,
+        .navbar-khwezi .navbar-nav > .active > a:focus {
+            color: #0d2b6e;
+            background: transparent;
+            border-bottom-color: #e8283f;
+        }
+
+        .auth-name {
+            color: #0d2b6e !important;
+            font-weight: 700 !important;
+            font-size: 14px !important;
+            padding: 26px 14px !important;
+        }
+        .auth-name:hover { background: #f7faff !important; border-bottom-color: transparent !important; }
+
+        .navbar-khwezi .navbar-toggle { margin-top: 20px; border-color: rgba(13,43,110,.35); }
+        .navbar-khwezi .navbar-toggle .icon-bar { background-color: #0d2b6e; }
+
+        /* =========================================================
+           SITE FOOTER — NAVY
+           ========================================================= */
+        .site-footer {
+            background: #0d2b6e;
+            color: #c3d2ee;
+            margin-top: 80px;
+            padding: 56px 24px 0;
+        }
+        .footer-grid {
+            max-width: 1180px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.4fr 1fr 1fr 1fr;
+            gap: 40px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid rgba(255,255,255,.1);
+        }
+        .footer-col h4 {
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: 800;
+            letter-spacing: .5px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        .footer-col h4::after {
+            content: '';
+            position: absolute;
+            left: 0; bottom: 0;
+            width: 32px; height: 2px;
+            background: #e8283f;
+            border-radius: 1px;
+        }
+        .footer-col ul { list-style: none; padding: 0; margin: 0; }
+        .footer-col ul li { margin-bottom: 10px; }
+        .footer-col ul li a {
+            color: #b5c4dd;
+            text-decoration: none;
+            font-size: 13.5px;
+            line-height: 1.5;
+            display: inline-block;
+            transition: color .2s ease, transform .2s ease;
+        }
+        .footer-col ul li a:hover {
+            color: #ffffff;
+            transform: translateX(4px);
+        }
+        .footer-col ul li a.footer-login {
+            color: #ff8095;
+            font-weight: 800;
+            font-size: 14px;
+        }
+        .footer-col ul li a.footer-login:hover { color: #ffffff; }
+
+        .footer-brand-icon {
+            height: 48px;
+            width: auto;
+            margin-bottom: 14px;
+            display: block;
+        }
+        .footer-brand-text {
+            font-size: 22px;
+            font-weight: 900;
+            font-style: italic;
+            color: #ffffff;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+        .footer-brand-text span { color: #e8283f; }
+        .footer-brand-sub {
+            font-size: 9px;
+            letter-spacing: 4px;
+            color: #c3d2ee;
+            font-weight: 700;
+            margin-bottom: 18px;
+        }
+        .footer-brand-desc {
+            font-size: 13px;
+            line-height: 1.7;
+            color: #b5c4dd;
+            margin-bottom: 18px;
+        }
+        .footer-tagline {
+            font-size: 12.5px;
+            color: #ff8095;
+            font-weight: 800;
+            font-style: italic;
+            letter-spacing: .3px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 16px;
+        }
+        .footer-social a {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255,255,255,.08);
+            border: 1px solid rgba(255,255,255,.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #c3d2ee;
+            text-decoration: none;
+            transition: all .2s ease;
+        }
+        .footer-social a:hover {
+            background: #e8283f;
+            border-color: #e8283f;
+            color: #ffffff;
+            transform: translateY(-3px);
+        }
+        .footer-social svg { width: 17px; height: 17px; }
+
+        .footer-copy {
+            max-width: 1180px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            padding: 22px 0 26px;
+            font-size: 12.5px;
+            color: #8ba4d4;
+        }
+        .footer-copy a {
+            color: #8ba4d4;
+            text-decoration: none;
+            transition: color .2s ease;
+        }
+        .footer-copy a:hover { color: #ffffff; }
+        .footer-copy strong { color: #ffffff; }
+
+        /* =========================================================
+           FLOATING WHATSAPP BUTTON
+           ========================================================= */
+        #waFloat {
+            position: fixed;
+            right: 22px;
+            bottom: 22px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #25d366;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 26px rgba(37, 211, 102, .45);
+            z-index: 9999;
+            text-decoration: none;
+            transition: transform .2s ease, background .2s ease;
+            animation: waPulse 2.4s infinite;
+        }
+        #waFloat:hover {
+            transform: scale(1.1);
+            background: #128c7e;
+            text-decoration: none;
+        }
+        #waFloat svg { width: 30px; height: 30px; }
+        @keyframes waPulse {
+            0%   { box-shadow: 0 10px 26px rgba(37,211,102,.45), 0 0 0 0 rgba(37,211,102,.55); }
+            70%  { box-shadow: 0 10px 26px rgba(37,211,102,.45), 0 0 0 16px rgba(37,211,102,0); }
+            100% { box-shadow: 0 10px 26px rgba(37,211,102,.45), 0 0 0 0 rgba(37,211,102,0); }
+        }
+
+        /* =========================================================
+           KHWEZI CHAT WIDGET
+           ========================================================= */
+        #kwChatLauncher {
+            position: fixed; right: 22px; bottom: 94px;
+            width: 60px; height: 60px; border-radius: 50%;
+            background: #e8283f; border: none; cursor: pointer;
+            box-shadow: 0 10px 26px rgba(232,40,63,.45);
+            z-index: 9999; display: flex; align-items: center; justify-content: center;
+            transition: transform .2s ease, background .2s ease;
+        }
+        #kwChatLauncher:hover { transform: scale(1.08); background: #c81e33; }
+        #kwChatPanel {
+            position: fixed; right: 22px; bottom: 166px;
+            width: 350px; max-width: calc(100vw - 24px);
+            height: 500px; max-height: calc(100vh - 200px);
+            background: #fff; border-radius: 16px; overflow: hidden;
+            box-shadow: 0 18px 50px rgba(5,20,55,.35);
+            z-index: 10000; display: none; flex-direction: column;
+        }
+        .kw-head {
+            background: #0d2b6e; color: #fff; padding: 14px 16px;
+            display: flex; align-items: center; gap: 10px;
+            border-bottom: 3px solid #e8283f;
+        }
+        .kw-avatar {
+            width: 36px; height: 36px; border-radius: 50%;
+            background: #e8283f; color: #fff;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 800; font-style: italic; font-size: 17px;
+        }
+        .kw-head-title { font-weight: 800; font-size: 15px; line-height: 1.2; }
+        .kw-head-sub { font-size: 11px; color: #c3d2ee; }
+        #kwChatClose {
+            margin-left: auto; background: transparent; border: none;
+            color: #fff; font-size: 22px; cursor: pointer; line-height: 1;
+        }
+        #kwChatBody {
+            flex: 1; overflow-y: auto; padding: 14px;
+            background: #f4f7fd; display: flex;
+            flex-direction: column; gap: 10px;
+        }
+        .kw-msg {
+            max-width: 86%; padding: 10px 13px; border-radius: 14px;
+            font-size: 13.5px; line-height: 1.55;
+        }
+        .kw-msg.bot {
+            background: #fff; color: #2b3a55;
+            border: 1px solid #dbe4f6;
+            border-bottom-left-radius: 4px; align-self: flex-start;
+            box-shadow: 0 2px 6px rgba(13,43,110,.05);
+        }
+        .kw-msg.user {
+            background: #0d2b6e; color: #fff;
+            border-bottom-right-radius: 4px; align-self: flex-end;
+        }
+        .kw-msg.bot a { color: #e8283f; font-weight: 700; }
+        .kw-msg.bot b { color: #0d2b6e; }
+        .kw-typing .kw-dot {
+            display: inline-block; width: 6px; height: 6px;
+            border-radius: 50%; background: #9fb4de; margin-right: 4px;
+            animation: kwBlink 1s infinite;
+        }
+        .kw-typing .kw-dot:nth-child(2) { animation-delay: .2s; }
+        .kw-typing .kw-dot:nth-child(3) { animation-delay: .4s; }
+        @keyframes kwBlink { 0%,80%,100% { opacity:.25; } 40% { opacity:1; } }
+        .kw-chips {
+            display: flex; flex-wrap: wrap; gap: 6px;
+            padding: 0 14px 10px; background: #f4f7fd;
+        }
+        .kw-chip {
+            background: #fff; border: 1px solid #d5e0f2; color: #0d2b6e;
+            font-size: 12px; font-weight: 700; padding: 6px 12px;
+            border-radius: 14px; cursor: pointer; transition: all .2s;
+        }
+        .kw-chip:hover { border-color: #e8283f; color: #e8283f; }
+        .kw-input-row {
+            display: flex; gap: 8px; padding: 12px;
+            background: #fff; border-top: 1px solid #e3eaf6;
+        }
+        #kwChatInput {
+            flex: 1; border: 1px solid #d5e0f2; border-radius: 20px;
+            padding: 10px 14px; font-size: 13.5px; outline: none;
+        }
+        #kwChatInput:focus { border-color: #e8283f; }
+        #kwChatSend {
+            width: 42px; height: 42px; border-radius: 50%; border: none;
+            background: #e8283f; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            flex: 0 0 auto; transition: background .2s;
+        }
+        #kwChatSend:hover { background: #c81e33; }
+
+        /* =========================================================
+           MOBILE
+           ========================================================= */
+        @media (max-width: 1024px) {
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 768px) {
+            body { padding-top: 66px; }
+            .navbar-khwezi { min-height: 66px; }
+            .brand-icon { height: 42px; }
+            .brand-name { font-size: 20px; }
+            .brand-sub { font-size: 7.5px; letter-spacing: 3px; }
+            .brand-logo { height: 62px; gap: 8px; margin-right: 0; }
+
+            .navbar-khwezi .navbar-nav > li > a { padding: 14px 20px; }
+            .auth-name { padding: 14px 20px !important; }
+
+            #waFloat { right: 12px; bottom: 84px; width: 54px; height: 54px; }
+            #waFloat svg { width: 26px; height: 26px; }
+
+            #kwChatLauncher { right: 12px; bottom: 152px; width: 54px; height: 54px; }
+            #kwChatPanel { right: 12px; bottom: 220px; }
+        }
+        @media (max-width: 600px) {
+            .footer-grid { grid-template-columns: 1fr; gap: 30px; }
+            .footer-copy { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+
+<body>
+    <form runat="server">
+        <asp:ScriptManager runat="server">
+            <Scripts>
+                <asp:ScriptReference Name="MsAjaxBundle" />
+                <asp:ScriptReference Name="jquery" />
+                <asp:ScriptReference Name="bootstrap" />
+                <asp:ScriptReference Name="WebForms.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebForms.js" />
+                <asp:ScriptReference Name="WebUIValidation.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebUIValidation.js" />
+                <asp:ScriptReference Name="MenuStandards.js" Assembly="System.Web" Path="~/Scripts/WebForms/MenuStandards.js" />
+                <asp:ScriptReference Name="GridView.js" Assembly="System.Web" Path="~/Scripts/WebForms/GridView.js" />
+                <asp:ScriptReference Name="DetailsView.js" Assembly="System.Web" Path="~/Scripts/WebForms/DetailsView.js" />
+                <asp:ScriptReference Name="TreeView.js" Assembly="System.Web" Path="~/Scripts/WebForms/TreeView.js" />
+                <asp:ScriptReference Name="WebParts.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebParts.js" />
+                <asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />
+                <asp:ScriptReference Name="WebFormsBundle" />
+            </Scripts>
+        </asp:ScriptManager>
+
+        <!-- =========================================================
+             NAVBAR — WHITE
+             ========================================================= -->
+        <div class="navbar navbar-khwezi navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" title="more options">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand brand-logo" runat="server" href="~/">
+                        <img src="<%= ResolveUrl("~/Images/logo.png") %>"
+                             alt="IKHWEZI Driving School"
+                             class="brand-icon" />
+                        <span class="brand-text">
+                            <span class="brand-name">IKHWEZI<span class="brand-dot">.</span></span>
+                            <span class="brand-sub">DRIVING SCHOOL</span>
+                        </span>
+                    </a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a runat="server" href="~/">Home</a></li>
+                        <li><a runat="server" href="~/Offers">Packages</a></li>
+                        <li><a runat="server" href="~/About">About</a></li>
+                        <li><a runat="server" href="~/Home.aspx#findus">Contact</a></li>
+                    </ul>
+
+                    <%-- Logged-in greeting only. Login button moved to footer. --%>
+                    <asp:PlaceHolder ID="phUserLinks" runat="server" Visible="false">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>
+                                <a runat="server" href="~/StudentDashboard" class="auth-name" title="My dashboard">
+                                    Hi, <asp:Literal ID="litUserName" runat="server" /> !
+                                </a>
+                            </li>
+                        </ul>
+                    </asp:PlaceHolder>
+
+                    <%-- Guest: login lives in the footer, so nothing here. --%>
+                    <asp:PlaceHolder ID="phGuestLinks" runat="server" Visible="false"></asp:PlaceHolder>
+                </div>
+            </div>
+        </div>
+
+        <!-- =========================================================
+             MAIN CONTENT
+             ========================================================= -->
+        <div class="container body-content">
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+
+        <!-- =========================================================
+             SITE FOOTER
+             ========================================================= -->
+        <footer class="site-footer">
+            <div class="footer-grid">
+
+                <!-- Brand column -->
+                <div class="footer-col">
+                    <img src="<%= ResolveUrl("~/Images/logo.png") %>" alt="IKHWEZI" class="footer-brand-icon" />
+                    <div class="footer-brand-text">IKHWEZI<span>.</span></div>
+                    <div class="footer-brand-sub">DRIVING SCHOOL</div>
+                    <p class="footer-brand-desc">
+                        Professional driving instruction in Durban. Code 08, Code 10, and Automatic.
+                        90% first-time pass rate &mdash; we don't pass until you do.
+                    </p>
+                    <div class="footer-tagline">We don't pass until you do.</div>
+
+                    <div class="footer-social">
+                        <a href="https://facebook.com" target="_blank" rel="noopener" aria-label="Facebook">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.8-1.6 1.6V12h2.7l-.4 2.9h-2.3v7A10 10 0 0 0 22 12z"/></svg>
+                        </a>
+                        <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/></svg>
+                        </a>
+                        <a href="https://wa.me/27812345678" target="_blank" rel="noopener" aria-label="WhatsApp">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.4A10 10 0 1 0 12 2zm5.6 14.3c-.2.6-1.2 1.2-1.7 1.2-.5.1-1 .1-1.7-.1-1.8-.7-3-2.5-3.7-3.1-.7-.9-1.3-2-1.3-3.1 0-1 .5-1.6.7-1.8.2-.2.5-.3.6-.3h.4c.1 0 .3 0 .5.4l.6 1.5c.1.1.1.3 0 .5l-.3.5c-.1.2-.2.3-.3.5-.1.1-.2.3 0 .5.2.3.7 1.1 1.4 1.8.9.8 1.7 1.1 2 .5.1-.1.2-.2.3-.4.1-.1.3-.2.5-.1l1.5.7c.2.1.3.2.4.3.1.2.1.4 0 .5z"/></svg>
+                        </a>
+                        <a href="https://youtube.com" target="_blank" rel="noopener" aria-label="YouTube">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 12s0-3.3-.4-4.9c-.2-.9-.9-1.6-1.8-1.8C19.2 5 12 5 12 5s-7.2 0-8.8.3c-.9.2-1.6.9-1.8 1.8C1 8.7 1 12 1 12s0 3.3.4 4.9c.2.9.9 1.6 1.8 1.8 1.6.3 8.8.3 8.8.3s7.2 0 8.8-.3c.9-.2 1.6-.9 1.8-1.8C23 15.3 23 12 23 12zM10 15.5v-7l6 3.5-6 3.5z"/></svg>
+                        </a>
+                        <a href="https://tiktok.com" target="_blank" rel="noopener" aria-label="TikTok">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 3v3.5a5 5 0 0 0 4 4V14a8.4 8.4 0 0 1-4.5-1.3v5.8A5.8 5.8 0 1 1 9 12.7v3.2a2.6 2.6 0 1 0 3.5 2.5V3H16z"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick links (with highlighted Login) -->
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a runat="server" href="~/">Home</a></li>
+                        <li><a runat="server" href="~/Offers">Packages &amp; Pricing</a></li>
+                        <li><a runat="server" href="~/BookSession">Book a Session</a></li>
+                        <li><a runat="server" href="~/LearnersGuide">Free Learner's Guide</a></li>
+                        <li><a runat="server" href="~/LearnersClass">Learners Class (K53)</a></li>
+                        <li><a runat="server" href="~/Account/Login" class="footer-login">Login</a></li>
+                    </ul>
+                </div>
+
+                <!-- Support -->
+                <div class="footer-col">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a runat="server" href="~/Home.aspx#findus">Find Us</a></li>
+                        <li><a runat="server" href="~/Home.aspx#findus">Operating Hours</a></li>
+                        <li><a href="mailto:info@khwezidriving.co.za">Email Support</a></li>
+                        <li><a href="https://wa.me/27812345678" target="_blank" rel="noopener">WhatsApp Us</a></li>
+                        <li><a href="tel:+27311234567">Call Us</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="tel:+27311234567">+27 31 123 4567</a></li>
+                        <li><a href="https://wa.me/27812345678" target="_blank" rel="noopener">+27 81 234 5678</a></li>
+                        <li><a href="mailto:info@khwezidriving.co.za">info@khwezidriving.co.za</a></li>
+                        <li>UKZN Concourse, Durban</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-copy">
+                <span>&copy; <%= DateTime.Now.Year %> <strong>IKHWEZI Driving School</strong>. All rights reserved.</span>
+                <span>
+                    <a href="#">Terms &amp; Conditions</a> &nbsp;|&nbsp;
+                    <a href="#">Privacy Policy</a> &nbsp;|&nbsp;
+                    <a href="#">POPIA</a>
+                </span>
+            </div>
+        </footer>
+
+        <!-- =========================================================
+             FLOATING WHATSAPP BUTTON
+             ========================================================= -->
+        <a id="waFloat"
+           href="https://wa.me/27812345678?text=Hi%20IKHWEZI%2C%20I%27d%20like%20to%20enquire%20about%20lessons"
+           target="_blank" rel="noopener" aria-label="Chat on WhatsApp" title="Chat with us on WhatsApp">
+            <svg viewBox="0 0 32 32" fill="#fff" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M16.001 3C8.831 3 3 8.83 3 15.997c0 2.297.6 4.542 1.743 6.518L3 29l6.663-1.74a12.94 12.94 0 006.338 1.637h.004c7.168 0 13.001-5.83 13.001-12.998C29.006 8.83 23.173 3 16.001 3zm0 23.885h-.003a10.79 10.79 0 01-5.503-1.508l-.395-.234-4.09 1.068 1.093-3.988-.258-.41a10.8 10.8 0 01-1.65-5.816c0-5.965 4.855-10.82 10.826-10.82 2.892 0 5.61 1.127 7.652 3.17a10.75 10.75 0 013.168 7.657c-.004 5.966-4.86 10.881-10.84 10.881z"/>
+                <path d="M22.373 18.406c-.358-.179-2.118-1.045-2.446-1.165-.328-.121-.567-.179-.806.18-.238.358-.925 1.165-1.134 1.404-.208.239-.417.269-.775.09-.358-.179-1.512-.557-2.88-1.777-1.065-.948-1.783-2.12-1.991-2.478-.209-.358-.022-.552.157-.73.16-.16.358-.418.537-.627.179-.208.238-.358.358-.597.12-.239.06-.448-.03-.627-.089-.179-.805-1.939-1.104-2.656-.291-.697-.588-.603-.806-.614-.209-.01-.448-.013-.687-.013-.239 0-.626.09-.954.448-.328.358-1.253 1.224-1.253 2.984 0 1.76 1.283 3.462 1.462 3.7.179.239 2.523 3.85 6.115 5.4.854.369 1.521.588 2.042.752.858.273 1.638.235 2.255.143.688-.103 2.118-.866 2.418-1.7.298-.837.298-1.553.208-1.702-.09-.149-.328-.239-.686-.418z"/>
+            </svg>
+        </a>
+
+        <!-- =========================================================
+             KHWEZI CHAT WIDGET — auto-hides 7 seconds after opening
+             ========================================================= -->
+        <button id="kwChatLauncher" type="button" aria-label="Chat with IKHWEZI">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+            </svg>
+        </button>
+
+        <div id="kwChatPanel">
+            <div class="kw-head">
+                <div class="kw-avatar">K.</div>
+                <div>
+                    <div class="kw-head-title">IKHWEZI Assistant</div>
+                    <div class="kw-head-sub">Typically replies instantly</div>
+                </div>
+                <button id="kwChatClose" type="button">&times;</button>
+            </div>
+
+            <div id="kwChatBody"></div>
+
+            <div class="kw-chips">
+                <button type="button" class="kw-chip" data-q="How much is Code 10?">Prices</button>
+                <button type="button" class="kw-chip" data-q="How do I book?">How do I book?</button>
+                <button type="button" class="kw-chip" data-q="Deposit and payment">Deposit</button>
+                <button type="button" class="kw-chip" data-q="Where are you located?">Location</button>
+                <button type="button" class="kw-chip" data-q="Operating hours">Hours</button>
+            </div>
+
+            <div class="kw-input-row">
+                <input id="kwChatInput" type="text" placeholder="Ask about prices, booking, location..." />
+                <button id="kwChatSend" type="button" aria-label="Send">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <script>
+            (function () {
+                var URL_BOOK = '<%= ResolveUrl("~/BookSession") %>';
+                var URL_LEARNERS = '<%= ResolveUrl("~/LearnersClass") %>';
+                var URL_OFFERS = '<%= ResolveUrl("~/Offers") %>';
+                var URL_FINDUS = '<%= ResolveUrl("~/Home.aspx") %>#findus';
+                var API = '<%= ResolveUrl("~/ChatApi.ashx") %>';
+
+                // Chat panel auto-hides 7 seconds after it is opened.
+                var AUTO_HIDE_MS = 7000;
+
+                var MSG_GREETING =
+                    "Hi! I'm the IKHWEZI virtual assistant. Ask me about our packages, prices, booking steps, or where to find us.";
+                var MSG_BOOKING =
+                    "Booking is easy:<br/>1. <a href='" + URL_BOOK + "'>Book a practical session</a> or a <a href='" + URL_LEARNERS + "'>learners class</a><br/>2. You'll get a confirmation email<br/>3. Pay the 50% deposit at reception<br/>4. Reception confirms your booking<br/><br/>Bring your learner's licence and ID on the day.";
+                var MSG_PAYMENT =
+                    "We keep it affordable:<br/>&bull; <b>50% deposit</b> secures your booking<br/>&bull; Balance spread over <b>2 months</b><br/>&bull; Full courses include a <b>free learners licence</b><br/><br/>Payments are made at reception for now &mdash; online payments are coming soon.";
+                var MSG_LOCATION =
+                    "You'll find us at:<br/><b>IKHWEZI Driving School</b><br/>Student Union, UKZN Concourse<br/>269 Mazisi Kunene Rd, Glenwood, Durban, 4001<br/><br/><a href='https://maps.app.goo.gl/aMAs4L6br3kr5W5bA' target='_blank' rel='noopener'>Open in Google Maps</a> or see the Find Us section on the <a href='" + URL_FINDUS + "'>Home page</a>.";
+                var MSG_HOURS =
+                    "Operating hours:<br/><b>Mon &ndash; Fri:</b> 8:00 &ndash; 17:00<br/><b>Saturday:</b> 8:00 &ndash; 13:00<br/><b>Sunday:</b> Closed";
+                var MSG_CONTACT =
+                    "You can reach us on:<br/><b>Phone / WhatsApp:</b> <a href='tel:+27311234567'>+27 31 123 4567</a> or <a href='https://wa.me/27812345678' target='_blank' rel='noopener'>+27 81 234 5678</a><br/><b>Email:</b> <a href='mailto:info@khwezidriving.co.za'>info@khwezidriving.co.za</a><br/><br/>Or visit us &mdash; <a href='" + URL_FINDUS + "'>directions here</a>.";
+                var MSG_CODE14 =
+                    "We currently train for <b>Code 08</b> (light motor vehicles), <b>Code 10</b> (medium trucks) and <b>Automatic</b>, plus a <b>K53 learners theory class</b>. Ask me about the prices for any of these!";
+                var MSG_FALLBACK =
+                    "I'm still learning! Try asking:<br/>&bull; <i>How much is Code 10?</i><br/>&bull; <i>How do I book?</i><br/>&bull; <i>Deposit and payment</i><br/>&bull; <i>Where are you located?</i><br/><br/>Or email <a href='mailto:info@khwezidriving.co.za'>info@khwezidriving.co.za</a> and a human will help.";
+
+                var launcher, panel, body, input, opened = false, autoHideTimer = null;
+
+                function el(id) { return document.getElementById(id); }
+
+                function money(n) {
+                    return Number(n).toLocaleString('en-US',
+                        { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                }
+
+                function scrollDown() { body.scrollTop = body.scrollHeight; }
+
+                function addMsg(content, who, isHtml) {
+                    var d = document.createElement('div');
+                    d.className = 'kw-msg ' + who;
+                    if (isHtml) { d.innerHTML = content; }
+                    else { d.textContent = content; }
+                    body.appendChild(d);
+                    scrollDown();
+                    return d;
+                }
+
+                function removeEl(node) {
+                    if (node && node.parentNode) node.parentNode.removeChild(node);
+                }
+
+                function botSay(html, delay, isHtml) {
+                    var typing = addMsg(
+                        '<span class="kw-dot"></span><span class="kw-dot"></span><span class="kw-dot"></span>',
+                        'bot kw-typing', true);
+                    setTimeout(function () {
+                        removeEl(typing);
+                        addMsg(html, 'bot', isHtml !== false);
+                    }, delay || 600);
+                }
+
+                function userSays(text) {
+                    addMsg(text, 'user', false);
+                    route(text.toLowerCase());
+                }
+
+                function esc(s) {
+                    var d = document.createElement('div');
+                    d.appendChild(document.createTextNode(s || ''));
+                    return d.innerHTML;
+                }
+
+                function showPackages(data) {
+                    var html;
+                    if (data.filter) {
+                        html = '<b>Our ' + esc(data.filter) + ' options (live prices):</b><br/>';
+                    } else {
+                        html = '<b>Here are all our packages (live prices):</b><br/>';
+                    }
+                    for (var i = 0; i < data.packages.length && i < 8; i++) {
+                        var p = data.packages[i];
+                        html += '&bull; ' + esc(p.name) +
+                            ' &mdash; <b>R' + money(p.amount) + '</b> (' +
+                            p.lessons + (p.lessons === 1 ? ' lesson' : ' lessons') + ')<br/>';
+                    }
+                    html += '<br/>Every package: 50% deposit, balance over 2 months.<br/>' +
+                        '<a href="' + URL_BOOK + '">Book a practical session</a> &nbsp;&bull;&nbsp; ' +
+                        '<a href="' + URL_LEARNERS + '">Book a learners class</a> &nbsp;&bull;&nbsp; ' +
+                        '<a href="' + URL_OFFERS + '">All packages</a>';
+                    botSay(html, 650);
+                }
+
+                function askServer(q) {
+                    var typing = addMsg(
+                        '<span class="kw-dot"></span><span class="kw-dot"></span><span class="kw-dot"></span>',
+                        'bot kw-typing', true);
+
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('GET', API + '?q=' + encodeURIComponent(q), true);
+                    xhr.onload = function () {
+                        removeEl(typing);
+                        try {
+                            var data = JSON.parse(xhr.responseText);
+                            if (data.ok && data.packages && data.packages.length) {
+                                showPackages(data);
+                            } else {
+                                botSay(MSG_FALLBACK, 300);
+                            }
+                        } catch (e) {
+                            botSay(MSG_FALLBACK, 300);
+                        }
+                    };
+                    xhr.onerror = function () {
+                        removeEl(typing);
+                        botSay(MSG_FALLBACK, 300);
+                    };
+                    xhr.send();
+                }
+
+                function route(q) {
+                    if (/(code ?14|heavy (motor|truck|vehicle))/.test(q)) { botSay(MSG_CODE14); return; }
+
+                    if (q.length <= 14 && /^(hi|hello|hey|howzit|molo|sawubona|good (morning|afternoon|evening))/.test(q)) {
+                        botSay(MSG_GREETING); return;
+                    }
+                    if (/(book|booking|reserve|appointment|sign ?up|register|enrol)/.test(q)) { botSay(MSG_BOOKING); return; }
+                    if (/(deposit|payment|pay\b|instal|installment|instalment)/.test(q)) { botSay(MSG_PAYMENT); return; }
+                    if (/(where|location|address|located|find you|map|direction)/.test(q)) { botSay(MSG_LOCATION); return; }
+                    if (/(hour|opening|open|close|what time|when are you)/.test(q)) { botSay(MSG_HOURS); return; }
+                    if (/(contact|phone|whatsapp|email|call|number)/.test(q)) { botSay(MSG_CONTACT); return; }
+                    if (/(price|cost|how much|rate|package|lesson|code|automatic|truck|hire|learners|k53|theory)/.test(q)) {
+                        askServer(q); return;
+                    }
+                    botSay(MSG_FALLBACK);
+                }
+
+                function startAutoHide() {
+                    stopAutoHide();
+                    autoHideTimer = setTimeout(function () { closePanel(); }, AUTO_HIDE_MS);
+                }
+
+                function stopAutoHide() {
+                    if (autoHideTimer) {
+                        clearTimeout(autoHideTimer);
+                        autoHideTimer = null;
+                    }
+                }
+
+                function openPanel() {
+                    panel.style.display = 'flex';
+                    if (!opened) {
+                        opened = true;
+                        botSay(MSG_GREETING, 350);
+                    }
+                    input.focus();
+                    startAutoHide();
+                }
+
+                function closePanel() {
+                    panel.style.display = 'none';
+                    stopAutoHide();
+                }
+
+                function toggle() {
+                    var open = panel.style.display === 'flex';
+                    if (open) closePanel();
+                    else openPanel();
+                }
+
+                function init() {
+                    launcher = el('kwChatLauncher');
+                    panel = el('kwChatPanel');
+                    body = el('kwChatBody');
+                    input = el('kwChatInput');
+
+                    launcher.addEventListener('click', toggle);
+                    el('kwChatClose').addEventListener('click', closePanel);
+
+                    el('kwChatSend').addEventListener('click', function () {
+                        var t = input.value.replace(/^\s+|\s+$/g, '');
+                        if (t) { input.value = ''; userSays(t); }
+                    });
+
+                    input.addEventListener('keydown', function (e) {
+                        if (e.key === 'Enter' || e.keyCode === 13) {
+                            e.preventDefault();
+                            var t = input.value.replace(/^\s+|\s+$/g, '');
+                            if (t) { input.value = ''; userSays(t); }
+                        }
+                    });
+
+                    var chips = document.querySelectorAll('.kw-chip');
+                    for (var i = 0; i < chips.length; i++) {
+                        chips[i].addEventListener('click', function () {
+                            userSays(this.getAttribute('data-q'));
+                        });
+                    }
+                }
+
+                if (document.readyState === 'loading') {
+                    document.addEventListener('DOMContentLoaded', init);
+                } else {
+                    init();
+                }
+            })();
+        </script>
+    </form>
+</body>
+</html>
