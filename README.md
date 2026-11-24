@@ -32,3 +32,12 @@ The repository includes source code and sample configuration files. You will nee
 ## Original Azure deployment
 
 The project was originally deployed to [Azure App Service](https://ist-wst-group-27.azurewebsites.net/). Availability may vary.
+## Website Screenshots
+
+### Homepage
+
+![IKHWEZI Driving School homepage](screenshorts/home.png)
+
+### Additional Homepage View
+
+![More of the IKHWEZI Driving School homepage](screenshorts/home2.png)
